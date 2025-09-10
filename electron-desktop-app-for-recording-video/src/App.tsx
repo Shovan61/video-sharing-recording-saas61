@@ -1,13 +1,21 @@
 import "./App.css";
-import { Button } from "./components/ui/button";
+import { Toaster } from "sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ControlLayout from "./layouts/ControlLayout";
+import AuthButton from "./components/Global/AuthButton";
 
 const queryClient = new QueryClient();
 
 function App() {
-	return <QueryClientProvider client={queryClient}>
-		<span className="text-green-700 text-4xl font-bold">Desktop</span>
-	</QueryClientProvider>;
+	return (
+		<QueryClientProvider client={queryClient}>
+			<ControlLayout >
+				<AuthButton />
+				<Widget />
+			</ControlLayout>
+			<Toaster />
+		</QueryClientProvider>
+	);
 }
 
 export default App;

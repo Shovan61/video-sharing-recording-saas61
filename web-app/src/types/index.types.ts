@@ -29,7 +29,7 @@ export type NotificationsProps = {
 
 export type UserWorkspaceResponse =
 	| {
-			status: 200;
+			status: number;
 			data: {
 				subscriptions: {
 					plan: "PRO" | "FREE";
