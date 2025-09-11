@@ -1,11 +1,20 @@
+import { fetchUserProfile } from "@/lib/utils";
 import { Profile } from "@/type";
 import { ClerkLoading, SignedIn, useUser } from "@clerk/clerk-react";
 import { Loader } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Widget() {
 	const [profile, setprofile] = useState<Profile | null>(null);
 	const { user } = useUser();
+
+	useEffect(() => {
+		if (user && user.id) {
+			fetchUserProfile(user.id).then((p) => {
+				setprofile(p);
+			});
+		}
+	}, [user]);
 
 	return (
 		<div className="p-5">
