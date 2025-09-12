@@ -1,3 +1,4 @@
+import MideaConfiguration from "@/components/MideaConfiguration";
 import { fetchUserProfile } from "@/lib/utils";
 import { Profile } from "@/type";
 import { ClerkLoading, SignedIn, useUser } from "@clerk/clerk-react";
@@ -11,10 +12,12 @@ function Widget() {
 	useEffect(() => {
 		if (user && user.id) {
 			fetchUserProfile(user.id).then((p) => {
-				setprofile(p);
+				setprofile(p.data);
 			});
 		}
 	}, [user]);
+
+	console.log(profile, "profile");
 
 	return (
 		<div className="p-5">
@@ -23,7 +26,15 @@ function Widget() {
 					<Loader className="animate-spin" />
 				</div>
 			</ClerkLoading>
-			<SignedIn>{}</SignedIn>
+			<SignedIn>
+				{profile ? (
+					<MideaConfiguration />
+				) : (
+					<div className="w-full h-full flex items-center justify-center">
+						<Loader className="animate-spin" />
+					</div>
+				)}
+			</SignedIn>
 		</div>
 	);
 }
