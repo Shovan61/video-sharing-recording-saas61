@@ -26,9 +26,28 @@ export const getMediaSources = async () => {
 		);
 		console.log("getting sources");
 		return { displays, audioInputs };
-		return;
 	} catch (error) {
 		console.log(error, "Error while fetching media Resources getMediaSources");
 		throw new Error("Error while fetching media Resources getMediaSources");
+	}
+};
+
+export const updateStudioSettings = async (
+	screen: string,
+	id: string,
+	audio: string,
+	preset: string
+) => {
+	try {
+		const response = await axiosInstance.post(`/studio/${id}`, {
+			screen,
+			audio,
+			preset,
+		});
+		console.log("updated studio settings");
+		return response.data;
+	} catch (error) {
+		console.log(error, "Error while updateStudioSettings");
+		throw new Error("Error while updateStudioSettings");
 	}
 };

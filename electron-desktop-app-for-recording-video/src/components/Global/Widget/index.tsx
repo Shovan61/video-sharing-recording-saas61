@@ -1,4 +1,5 @@
 import MideaConfiguration from "@/components/MideaConfiguration";
+import { useMediaResources } from "@/hooks/useMediaResources";
 import { fetchUserProfile } from "@/lib/utils";
 import { Profile } from "@/type";
 import { ClerkLoading, SignedIn, useUser } from "@clerk/clerk-react";
@@ -9,15 +10,19 @@ function Widget() {
 	const [profile, setprofile] = useState<Profile | null>(null);
 	const { user } = useUser();
 
+	const { fetchMediaResources, state } = useMediaResources();
+
 	useEffect(() => {
 		if (user && user.id) {
 			fetchUserProfile(user.id).then((p) => {
 				setprofile(p.data);
 			});
+
+			fetchMediaResources();
 		}
 	}, [user]);
 
-	console.log(profile, "profile");
+	console.log(state, "=============");
 
 	return (
 		<div className="p-5">
@@ -28,7 +33,7 @@ function Widget() {
 			</ClerkLoading>
 			<SignedIn>
 				{profile ? (
-					<MideaConfiguration />
+					<MideaConfiguration state={state} user={profile} />
 				) : (
 					<div className="w-full h-full flex items-center justify-center">
 						<Loader className="animate-spin" />
