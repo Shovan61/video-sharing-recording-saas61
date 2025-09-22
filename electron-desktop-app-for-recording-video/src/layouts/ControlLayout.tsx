@@ -21,7 +21,7 @@ function ControlLayout({ children, className }: Props) {
 			className={cn(
 				className,
 				isVisible && "invisible",
-				"bg-neutral-800 flex px-1 flex-col rounded-3xl overflow-hidden"
+				"bg-neutral-800 flex px-1 flex-col rounded-3xl overflow-hidden "
 			)}
 		>
 			<div className="flex justify-between items-center p-5 draggable">

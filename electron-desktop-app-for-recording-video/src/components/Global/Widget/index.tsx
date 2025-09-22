@@ -10,7 +10,7 @@ function Widget() {
 	const [profile, setprofile] = useState<Profile | null>(null);
 	const { user } = useUser();
 
-	const { fetchMediaResources, state } = useMediaResources();
+	// const { fetchMediaResources, state } = useMediaResources();
 
 	useEffect(() => {
 		if (user && user.id) {
@@ -18,11 +18,11 @@ function Widget() {
 				setprofile(p.data);
 			});
 
-			fetchMediaResources();
+			// fetchMediaResources();
 		}
 	}, [user]);
 
-	console.log(state, "=============");
+	
 
 	return (
 		<div className="p-5">
