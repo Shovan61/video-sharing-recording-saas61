@@ -22,10 +22,7 @@ function createWindow() {
     hasShadow: false,
     transparent: true,
     alwaysOnTop: true,
-    focusable: true,
-    // <-- must be true for your main window
-    backgroundColor: "#00000000",
-    // transparent background that still paints
+    focusable: false,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       nodeIntegration: false,
@@ -41,10 +38,10 @@ function createWindow() {
     maxHeight: 400,
     minWidth: 300,
     maxWidth: 400,
-    frame: false,
+    frame: true,
     transparent: true,
     alwaysOnTop: true,
-    focusable: true,
+    focusable: false,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       nodeIntegration: false,
@@ -63,7 +60,7 @@ function createWindow() {
     frame: false,
     transparent: true,
     alwaysOnTop: true,
-    focusable: true,
+    focusable: false,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       nodeIntegration: false,
@@ -81,8 +78,12 @@ function createWindow() {
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
   });
+  studio.webContents.on("did-finish-load", () => {
+    studio == null ? void 0 : studio.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+  });
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
+    win.loadURL("http://localhost:5173");
   } else {
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }

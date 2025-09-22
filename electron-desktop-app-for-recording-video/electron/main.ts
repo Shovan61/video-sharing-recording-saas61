@@ -40,8 +40,7 @@ function createWindow() {
 		hasShadow: false,
 		transparent: true,
 		alwaysOnTop: true,
-		focusable: true, // <-- must be true for your main window
-		backgroundColor: "#00000000", // transparent background that still paints
+		focusable: false,
 		icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
 		webPreferences: {
 			nodeIntegration: false,
@@ -58,10 +57,10 @@ function createWindow() {
 		maxHeight: 400,
 		minWidth: 300,
 		maxWidth: 400,
-		frame: false,
+		frame: true,
 		transparent: true,
 		alwaysOnTop: true,
-		focusable: true,
+		focusable: false,
 		icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
 		webPreferences: {
 			nodeIntegration: false,
@@ -81,7 +80,7 @@ function createWindow() {
 		frame: false,
 		transparent: true,
 		alwaysOnTop: true,
-		focusable: true,
+		focusable: false,
 		icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
 		webPreferences: {
 			nodeIntegration: false,
@@ -105,8 +104,20 @@ function createWindow() {
 		win?.webContents.send("main-process-message", new Date().toLocaleString());
 	});
 
+	studio.webContents.on("did-finish-load", () => {
+		studio?.webContents.send("main-process-message", new Date().toLocaleString());
+	});
+
+	// floaingWebCam.webContents.on("did-finish-load", () => {
+	// 	floaingWebCam?.webContents.send(
+	// 		"main-process-message",
+	// 		new Date().toLocaleString()
+	// 	);
+	// });
+
 	if (VITE_DEV_SERVER_URL) {
-		win.loadURL(VITE_DEV_SERVER_URL);
+		win.loadURL(VITE_DEV_SERVER_URL); 
+		win.loadURL(import.meta.env.VITE_APP_URL); 
 	} else {
 		// win.loadFile('dist/index.html')
 		win.loadFile(path.join(RENDERER_DIST, "index.html"));
