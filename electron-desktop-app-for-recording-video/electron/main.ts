@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, desktopCapturer, ipcMain } from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -30,6 +30,9 @@ let win: BrowserWindow | null;
 let studio: BrowserWindow | null;
 let floaingWebCam: BrowserWindow | null;
 
+// To DO in here run the app see in dev tool an error in console , solve it
+// video 12;40 hour
+
 function createWindow() {
 	win = new BrowserWindow({
 		width: 600,
@@ -37,17 +40,17 @@ function createWindow() {
 		minHeight: 600,
 		minWidth: 300,
 		frame: true,
-		hasShadow: false,
-		transparent: true,
-		alwaysOnTop: true,
-		focusable: false,
-		icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
-		webPreferences: {
-			nodeIntegration: false,
-			contextIsolation: true,
-			devTools: true,
-			preload: path.join(__dirname, "preload.mjs"),
-		},
+		// hasShadow: false,
+		// transparent: true,
+		// alwaysOnTop: true,
+		// focusable: false,
+		// icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
+		// webPreferences: {
+		// 	nodeIntegration: false,
+		// 	contextIsolation: true,
+		// 	devTools: true,
+		// 	preload: path.join(__dirname, "preload.mjs"),
+		// },
 	});
 
 	studio = new BrowserWindow({
@@ -57,7 +60,7 @@ function createWindow() {
 		maxHeight: 400,
 		minWidth: 300,
 		maxWidth: 400,
-		frame: true,
+		frame: false,
 		transparent: true,
 		alwaysOnTop: true,
 		focusable: false,
@@ -116,11 +119,14 @@ function createWindow() {
 	// });
 
 	if (VITE_DEV_SERVER_URL) {
-		win.loadURL(VITE_DEV_SERVER_URL); 
-		win.loadURL(import.meta.env.VITE_APP_URL); 
+		win.loadURL(VITE_DEV_SERVER_URL);
+		studio.loadURL(`${import.meta.env.VITE_APP_URL}/studio.html`);
+		floaingWebCam.loadURL(`${import.meta.env.VITE_APP_URL}/webcam.html`);
 	} else {
 		// win.loadFile('dist/index.html')
 		win.loadFile(path.join(RENDERER_DIST, "index.html"));
+		studio.loadFile(path.join(RENDERER_DIST, "studio.html"));
+		floaingWebCam.loadFile(path.join(RENDERER_DIST, "webcam.html"));
 	}
 }
 
@@ -131,7 +137,47 @@ app.on("window-all-closed", () => {
 	if (process.platform !== "darwin") {
 		app.quit();
 		win = null;
+		studio = null;
+		floaingWebCam = null;
 	}
+});
+
+ipcMain.on("closeApp", () => {
+	if (process.platform !== "darwin") {
+		app.quit();
+		win = null;
+		studio = null;
+		floaingWebCam = null;
+	}
+});
+
+ipcMain.handle("getSources", async () => {
+	return await desktopCapturer.getSources({
+		thumbnailSize: { height: 100, width: 150 },
+		fetchWindowIcons: true,
+		types: ["screen", "window"],
+	});
+});
+
+ipcMain.on("media-sources", (event, payload) => {
+	console.log("media-sources ipcMain", event);
+	studio?.webContents.send("profile-received", payload);
+});
+
+ipcMain.on("resize-studio", (event, payload) => {
+	console.log("resize-studio ipcMain", event);
+	if (payload.shrink) {
+		studio?.setSize(400, 100);
+	}
+
+	if (!payload.shrink) {
+		studio?.setSize(400, 250);
+	}
+});
+
+ipcMain.on("hide-plugin", (event, payload) => {
+	console.log("hide-plugin ipcMain", event);
+	win?.webContents.send("hide-plugin", payload);
 });
 
 app.on("activate", () => {
