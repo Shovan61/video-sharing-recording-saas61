@@ -11,10 +11,10 @@ type Props = {
 function ControlLayout({ children, className }: Props) {
 	const [isVisible, setisVisible] = useState(false);
 
-	window.ipcRenderer.on("hide-plugin", (event, payload) => {
-		console.log(event);
-		setisVisible(payload.state);
-	});
+	// window.ipcRenderer.on("hide-plugin", (event, payload) => {
+	// 	console.log(event);
+	// 	setisVisible(payload.state);
+	// });
 
 	return (
 		<div

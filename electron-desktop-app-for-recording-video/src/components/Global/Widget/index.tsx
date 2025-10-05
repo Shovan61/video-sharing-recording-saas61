@@ -10,7 +10,7 @@ function Widget() {
 	const [profile, setprofile] = useState<Profile | null>(null);
 	const { user } = useUser();
 
-	// const { fetchMediaResources, state } = useMediaResources();
+	const { fetchMediaResources, state } = useMediaResources();
 
 	useEffect(() => {
 		if (user && user.id) {
@@ -18,7 +18,7 @@ function Widget() {
 				setprofile(p.data);
 			});
 
-			// fetchMediaResources();
+			fetchMediaResources();
 		}
 	}, [user]);
 
@@ -33,7 +33,7 @@ function Widget() {
 			</ClerkLoading>
 			<SignedIn>
 				{profile ? (
-					<MideaConfiguration state={state} user={profile} />
+					<MideaConfiguration state={state} profile={profile} />
 				) : (
 					<div className="w-full h-full flex items-center justify-center">
 						<Loader className="animate-spin" />

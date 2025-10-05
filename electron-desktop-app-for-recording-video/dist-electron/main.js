@@ -78,9 +78,6 @@ function createWindow() {
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
   });
-  studio.webContents.on("did-finish-load", () => {
-    studio == null ? void 0 : studio.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
-  });
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
     studio.loadURL(`${"http://localhost:5173"}/studio.html`);
@@ -108,11 +105,13 @@ ipcMain.on("closeApp", () => {
   }
 });
 ipcMain.handle("getSources", async () => {
-  return await desktopCapturer.getSources({
+  const data = await desktopCapturer.getSources({
     thumbnailSize: { height: 100, width: 150 },
     fetchWindowIcons: true,
-    types: ["screen", "window"]
+    types: ["window", "screen"]
   });
+  console.log("getSources data 😆😆😆😆", data);
+  return data;
 });
 ipcMain.on("media-sources", (event, payload) => {
   console.log("media-sources ipcMain", event);
