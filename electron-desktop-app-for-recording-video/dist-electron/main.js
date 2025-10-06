@@ -18,18 +18,18 @@ function createWindow() {
     height: 600,
     minHeight: 600,
     minWidth: 300,
-    frame: true
-    // hasShadow: false,
-    // transparent: true,
-    // alwaysOnTop: true,
-    // focusable: false,
-    // icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
-    // webPreferences: {
-    // 	nodeIntegration: false,
-    // 	contextIsolation: true,
-    // 	devTools: true,
-    // 	preload: path.join(__dirname, "preload.mjs"),
-    // },
+    frame: true,
+    hasShadow: false,
+    transparent: true,
+    alwaysOnTop: true,
+    focusable: false,
+    icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      devTools: true,
+      preload: path.join(__dirname, "preload.mjs")
+    }
   });
   studio = new BrowserWindow({
     width: 400,
@@ -77,6 +77,18 @@ function createWindow() {
   floaingWebCam.setAlwaysOnTop(true, "screen-saver", 1);
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+  });
+  studio.webContents.on("did-finish-load", () => {
+    studio == null ? void 0 : studio.webContents.send(
+      "main-process-message",
+      (/* @__PURE__ */ new Date()).toLocaleString()
+    );
+  });
+  floaingWebCam.webContents.on("did-finish-load", () => {
+    floaingWebCam == null ? void 0 : floaingWebCam.webContents.send(
+      "main-process-message",
+      (/* @__PURE__ */ new Date()).toLocaleString()
+    );
   });
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);

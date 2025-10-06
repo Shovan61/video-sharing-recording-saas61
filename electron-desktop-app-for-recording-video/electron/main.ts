@@ -40,17 +40,17 @@ function createWindow() {
     minHeight: 600,
     minWidth: 300,
     frame: true,
-    // hasShadow: false,
-    // transparent: true,
-    // alwaysOnTop: true,
-    // focusable: false,
-    // icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
-    // webPreferences: {
-    // 	nodeIntegration: false,
-    // 	contextIsolation: true,
-    // 	devTools: true,
-    // 	preload: path.join(__dirname, "preload.mjs"),
-    // },
+    hasShadow: false,
+    transparent: true,
+    alwaysOnTop: true,
+    focusable: false,
+    icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
+    webPreferences: {
+    	nodeIntegration: false,
+    	contextIsolation: true,
+    	devTools: true,
+    	preload: path.join(__dirname, "preload.mjs"),
+    },
   });
 
   studio = new BrowserWindow({
@@ -107,19 +107,19 @@ function createWindow() {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
   });
 
-  // studio.webContents.on("did-finish-load", () => {
-  //   studio?.webContents.send(
-  //     "main-process-message",
-  //     new Date().toLocaleString()
-  //   );
-  // });
+  studio.webContents.on("did-finish-load", () => {
+    studio?.webContents.send(
+      "main-process-message",
+      new Date().toLocaleString()
+    );
+  });
 
-  // floaingWebCam.webContents.on("did-finish-load", () => {
-  // 	floaingWebCam?.webContents.send(
-  // 		"main-process-message",
-  // 		new Date().toLocaleString()
-  // 	);
-  // });
+  floaingWebCam.webContents.on("did-finish-load", () => {
+  	floaingWebCam?.webContents.send(
+  		"main-process-message",
+  		new Date().toLocaleString()
+  	);
+  });
 
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
