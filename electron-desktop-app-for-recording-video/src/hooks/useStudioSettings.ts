@@ -57,7 +57,6 @@ export const useStudioSettings = ({ id, audio, plan, preset, screen }: StudioSet
 	useEffect(() => {
 		const subscribe = watch((values) => {
 			setpreset(values.preset);
-
 			mutate({
 				screen: values.screen!,
 				id: id,
