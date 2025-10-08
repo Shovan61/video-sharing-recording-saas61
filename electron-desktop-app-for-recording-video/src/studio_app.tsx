@@ -1,7 +1,8 @@
+import "./App.css";
 import { StudioTray } from "./components/Global/StudioTray";
 
-function StudioApp() { 
-	return <StudioTray />;
+function WebcamApp() {
+  return <StudioTray />;
 }
 
-export default StudioApp;
+export default WebcamApp;

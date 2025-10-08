@@ -2,24 +2,23 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { ClerkProvider } from "@clerk/clerk-react";
-import StudioApp from "./studio_app.tsx";
+import StudioApp from "./studio_app";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {
-	throw new Error("Missing publishable key");
+  throw new Error("Missing publishable key");
 }
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-	<React.StrictMode>
-		<ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl={"/"}>
-			<StudioApp />
-		</ClerkProvider>
-	</React.StrictMode>
+  <React.StrictMode>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl={"/"}>
+      <StudioApp />
+    </ClerkProvider>
+  </React.StrictMode>
 );
 
 // Use contextBridge
 window.ipcRenderer.on("main-process-message", (_event, message) => {
-	throw new Error("in studio main");
-	console.log(message, '==========================');
+  console.log(message);
 });
