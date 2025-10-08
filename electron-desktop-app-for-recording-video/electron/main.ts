@@ -30,9 +30,6 @@ let win: BrowserWindow | null;
 let studio: BrowserWindow | null;
 let floaingWebCam: BrowserWindow | null;
 
-// To DO in here run the app see in dev tool an error in console , solve it
-// video 12;40 hour
-
 function createWindow() {
   win = new BrowserWindow({
     width: 600,
@@ -161,8 +158,6 @@ ipcMain.handle("getSources", async () => {
     types: ["window", "screen"],
   });
   
-  console.log("getSources data 😆😆😆😆", data);
-
   return data;
 });
 

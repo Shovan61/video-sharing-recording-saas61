@@ -52,7 +52,7 @@ function createWindow() {
   });
   floaingWebCam = new BrowserWindow({
     width: 400,
-    height: 200,
+    height: 50,
     minHeight: 70,
     maxHeight: 400,
     minWidth: 300,
@@ -122,7 +122,6 @@ ipcMain.handle("getSources", async () => {
     fetchWindowIcons: true,
     types: ["window", "screen"]
   });
-  console.log("getSources data 😆😆😆😆", data);
   return data;
 });
 ipcMain.on("media-sources", (event, payload) => {
