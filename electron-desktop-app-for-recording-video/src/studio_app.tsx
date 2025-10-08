@@ -1,5 +1,7 @@
-function StudioApp() {
-	return <h1 className="text-4xl text-red-600">Studio App</h1>;
+import { StudioTray } from "./components/Global/StudioTray";
+
+function StudioApp() { 
+	return <StudioTray />;
 }
 
 export default StudioApp;

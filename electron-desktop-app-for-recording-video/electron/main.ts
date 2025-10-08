@@ -29,6 +29,7 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
 let win: BrowserWindow | null;
 let studio: BrowserWindow | null;
 let floaingWebCam: BrowserWindow | null;
+let test: BrowserWindow | null;
 
 function createWindow() {
   win = new BrowserWindow({
@@ -43,16 +44,16 @@ function createWindow() {
     focusable: false,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
-    	nodeIntegration: false,
-    	contextIsolation: true,
-    	devTools: true,
-    	preload: path.join(__dirname, "preload.mjs"),
+      nodeIntegration: false,
+      contextIsolation: true,
+      devTools: true,
+      preload: path.join(__dirname, "preload.mjs"),
     },
   });
 
   studio = new BrowserWindow({
     width: 400,
-    height: 50,
+    height: 200,
     minHeight: 70,
     maxHeight: 400,
     minWidth: 300,
@@ -90,6 +91,8 @@ function createWindow() {
     },
   });
 
+
+
   win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
   win.setAlwaysOnTop(true, "screen-saver", 1);
 
@@ -112,10 +115,10 @@ function createWindow() {
   });
 
   floaingWebCam.webContents.on("did-finish-load", () => {
-  	floaingWebCam?.webContents.send(
-  		"main-process-message",
-  		new Date().toLocaleString()
-  	);
+    floaingWebCam?.webContents.send(
+      "main-process-message",
+      new Date().toLocaleString()
+    );
   });
 
   if (VITE_DEV_SERVER_URL) {
@@ -126,7 +129,6 @@ function createWindow() {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
     studio.loadFile(path.join(RENDERER_DIST, "studio.html"));
-    floaingWebCam.loadFile(path.join(RENDERER_DIST, "webcam.html"));
   }
 }
 
@@ -157,7 +159,7 @@ ipcMain.handle("getSources", async () => {
     fetchWindowIcons: true,
     types: ["window", "screen"],
   });
-  
+
   return data;
 });
 

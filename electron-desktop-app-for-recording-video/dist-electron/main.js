@@ -33,7 +33,7 @@ function createWindow() {
   });
   studio = new BrowserWindow({
     width: 400,
-    height: 50,
+    height: 200,
     minHeight: 70,
     maxHeight: 400,
     minWidth: 300,
@@ -52,7 +52,7 @@ function createWindow() {
   });
   floaingWebCam = new BrowserWindow({
     width: 400,
-    height: 50,
+    height: 200,
     minHeight: 70,
     maxHeight: 400,
     minWidth: 300,
@@ -97,7 +97,6 @@ function createWindow() {
   } else {
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
     studio.loadFile(path.join(RENDERER_DIST, "studio.html"));
-    floaingWebCam.loadFile(path.join(RENDERER_DIST, "webcam.html"));
   }
 }
 app.on("window-all-closed", () => {
