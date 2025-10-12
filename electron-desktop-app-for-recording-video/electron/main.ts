@@ -53,7 +53,7 @@ function createWindow() {
 
   studio = new BrowserWindow({
     width: 400,
-    height: 200,
+    height: 150,
     minHeight: 70,
     maxHeight: 400,
     minWidth: 300,

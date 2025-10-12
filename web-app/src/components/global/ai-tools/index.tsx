@@ -17,7 +17,7 @@ function AiTools({ plan, trial, videoId }: Props) {
 		<main className=" text-white p-6 bg-neutral-800/80 shadow-2xl rounded-md">
 			<div className="max-w-4xl mx-auto">
 				{/* Header */}
-				<div className="flex items-center justify-between mb-8">
+				<div className="flex items-center justify-between mb-8 flex-row md:flex-col md:items-start md:gap-4">
 					<div>
 						<h1 className="text-2xl font-bold mb-2">
 							AI Tools
@@ -63,10 +63,10 @@ function AiTools({ plan, trial, videoId }: Props) {
 								<Play className="w-6 h-6 text-[#a22fe0]" />
 							</div>
 							<div>
-								<h3 className="font-semibold mb-1 text-[#a22fe0]">
+								<h3 className="font-semibold mb-1 text-[#a22fe0] text-sm">
 									Generate Video
 								</h3>
-								<p className="text-sm text-[#a22fe0]">
+								<p className="text-xs text-[#a22fe0]">
 									Summary
 								</p>
 							</div>
@@ -80,10 +80,10 @@ function AiTools({ plan, trial, videoId }: Props) {
 								<FileText className="w-6 h-6 text-[#a22fe0]" />
 							</div>
 							<div>
-								<h3 className="font-semibold mb-1 text-[#a22fe0]">
+								<h3 className="font-semibold mb-1 text-[#a22fe0] text-sm">
 									Create and read
 								</h3>
-								<p className="text-sm text-[#a22fe0]">
+								<p className="text-xs text-[#a22fe0]">
 									Video Transcript
 								</p>
 							</div>
@@ -97,10 +97,10 @@ function AiTools({ plan, trial, videoId }: Props) {
 								<Download className="w-6 h-6 text-[#a22fe0]" />
 							</div>
 							<div>
-								<h3 className="font-semibold mb-1">
+								<h3 className="font-semibold mb-1 text-[#a22fe0] text-sm">
 									Download as
 								</h3>
-								<p className="text-sm text-[#a22fe0]">
+								<p className="text-xs text-[#a22fe0]">
 									an audio file
 								</p>
 							</div>
