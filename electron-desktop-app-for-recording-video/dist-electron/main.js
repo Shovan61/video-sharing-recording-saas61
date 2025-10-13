@@ -94,6 +94,7 @@ function createWindow() {
     win.loadURL(VITE_DEV_SERVER_URL);
     studio.loadURL(`${"http://localhost:5173"}/studio.html`);
     floaingWebCam.loadURL(`${"http://localhost:5173"}/webcam.html`);
+    win.webContents.openDevTools({ mode: "detach" });
   } else {
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
     studio.loadFile(path.join(RENDERER_DIST, "studio.html"));

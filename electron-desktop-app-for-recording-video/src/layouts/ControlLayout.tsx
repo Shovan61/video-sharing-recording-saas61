@@ -15,7 +15,7 @@ function ControlLayout({ children, className }: Props) {
     console.log(event);
     setisVisible(payload.state);
   });
-  // test
+  
   return (
     <div
       className={cn(

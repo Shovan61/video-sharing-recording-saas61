@@ -91,8 +91,6 @@ function createWindow() {
     },
   });
 
-
-
   win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
   win.setAlwaysOnTop(true, "screen-saver", 1);
 
@@ -125,6 +123,8 @@ function createWindow() {
     win.loadURL(VITE_DEV_SERVER_URL);
     studio.loadURL(`${import.meta.env.VITE_APP_URL}/studio.html`);
     floaingWebCam.loadURL(`${import.meta.env.VITE_APP_URL}/webcam.html`);
+    // To Do this below line is for open developers tool, un comment this line to not show developers tool
+    win.webContents.openDevTools({ mode: "detach" });
   } else {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(RENDERER_DIST, "index.html"));

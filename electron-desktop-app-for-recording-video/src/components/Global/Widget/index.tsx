@@ -22,8 +22,6 @@ function Widget() {
 		}
 	}, [user]);
 
-	
-
 	return (
 		<div className="p-5">
 			<ClerkLoading>
