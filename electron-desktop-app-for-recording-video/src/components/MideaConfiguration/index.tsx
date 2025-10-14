@@ -23,6 +23,8 @@ function MideaConfiguration({ state, profile: { user } }: Props) {
     preset: user?.studio?.preset,
   });
 
+  console.log(user, "================user in media configuration component");
+
   return (
     <form action="" className="flex h-full relative w-full flex-col gap-y-5">
       {isPending && (
@@ -80,7 +82,7 @@ function MideaConfiguration({ state, profile: { user } }: Props) {
             disabled={user?.subscription?.plan === "FREE"}
           >
             1080p
-			{user?.subscription?.plan === "FREE" && "Upgrade to PRO plan"}
+            {user?.subscription?.plan === "FREE" && "Upgrade to PRO plan"}
           </option>
           <option
             value={"SD"}

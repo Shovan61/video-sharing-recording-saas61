@@ -7,39 +7,42 @@ import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 
 function Widget() {
-	const [profile, setprofile] = useState<Profile | null>(null);
-	const { user } = useUser();
+  const [profile, setprofile] = useState<Profile | null>(null);
+  const { user } = useUser();
 
-	const { fetchMediaResources, state } = useMediaResources();
+  const { fetchMediaResources, state } = useMediaResources();
 
-	useEffect(() => {
-		if (user && user.id) {
-			fetchUserProfile(user.id).then((p) => {
-				setprofile(p.data);
-			});
+  useEffect(() => {
+    if (user && user.id) {
+      fetchMediaResources();
 
-			fetchMediaResources();
-		}
-	}, [user]);
+      fetchUserProfile(user.id).then((p) => {
+        console.log(p, "payload in use effect");
+        setprofile({status: 200, user: p.data});
+      });
+    }
+  }, [user]);
 
-	return (
-		<div className="p-5">
-			<ClerkLoading>
-				<div className="h-full flex items-center justify-center">
-					<Loader className="animate-spin" />
-				</div>
-			</ClerkLoading>
-			<SignedIn>
-				{profile ? (
-					<MideaConfiguration state={state} profile={profile} />
-				) : (
-					<div className="w-full h-full flex items-center justify-center">
-						<Loader className="animate-spin" />
-					</div>
-				)}
-			</SignedIn>
-		</div>
-	);
+  console.log(profile, "profile in widget");
+
+  return (
+    <div className="p-5">
+      <ClerkLoading>
+        <div className="h-full flex items-center justify-center">
+          <Loader className="animate-spin" />
+        </div>
+      </ClerkLoading>
+      <SignedIn>
+        {profile ? (
+          <MideaConfiguration state={state} profile={profile} />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <Loader className="animate-spin" />
+          </div>
+        )}
+      </SignedIn>
+    </div>
+  );
 }
 
 export default Widget;
