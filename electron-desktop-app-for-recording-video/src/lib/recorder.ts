@@ -1,9 +1,12 @@
 import { hidePluginWindow } from "./utils";
+import { io } from "socket.io-client";
 import { v4 as uuid } from "uuid";
 
 let videoTransferFileName: string | undefined;
 let mediaRecorder: MediaRecorder;
 let userId: string;
+
+const socket = io(import.meta.env.VITE_SOCKET_URL);
 
 export const StartRecording = (onSources: {
   screen: string;
@@ -17,6 +20,20 @@ export const StartRecording = (onSources: {
 };
 
 export const onStopRecording = () => mediaRecorder.stop();
+const stopRecording = () => {
+  hidePluginWindow(false);
+  socket.emit("process-video", {
+    filename: videoTransferFileName,
+    userId,
+  });
+};
+
+const ondataavailableFunction = (e: BlobEvent) => {
+  socket.emit("video-chunks", {
+    chunks: e.data,
+    filename: videoTransferFileName,
+  });
+};
 
 export const selectSources = async (
   onSources: {
@@ -74,6 +91,7 @@ export const selectSources = async (
 
     // Socket setup
     // Capture chunks
-    // mediaRecorder.ondataavailable = 
+    mediaRecorder.ondataavailable = ondataavailableFunction;
+    mediaRecorder.onstart = stopRecording;
   }
 };
