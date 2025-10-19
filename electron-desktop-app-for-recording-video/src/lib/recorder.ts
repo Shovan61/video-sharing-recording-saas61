@@ -42,7 +42,7 @@ export const selectSources = async (
     id: string;
     preset: "HD" | "SD";
   },
-  videoElements: React.RefObject<HTMLVideoElement>
+  videoElement: React.RefObject<HTMLVideoElement>
 ) => {
   if (onSources && onSources.screen && onSources.audio && onSources.id) {
     const constrains: any = {
@@ -73,9 +73,9 @@ export const selectSources = async (
         : false,
     });
 
-    if (videoElements && videoElements.current) {
-      videoElements.current.srcObject = screenStream;
-      await videoElements.current.play();
+    if (videoElement && videoElement.current) {
+      videoElement.current.srcObject = screenStream;
+      await videoElement.current.play();
     }
 
     // merge both streams

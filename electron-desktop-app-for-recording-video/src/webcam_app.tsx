@@ -1,7 +1,8 @@
 import "./App.css";
+import Webcam from "./components/Global/Webcam";
 
 function WebcamApp() {
-	return <h1 className="text-4xl text-rose-700 draggable">WebcamApp</h1>;
+  return <Webcam />;
 }
 
 export default WebcamApp;
