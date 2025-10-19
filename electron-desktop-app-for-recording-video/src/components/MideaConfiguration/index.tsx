@@ -23,8 +23,6 @@ function MideaConfiguration({ state, profile: { user } }: Props) {
     preset: user?.studio?.preset,
   });
 
-  console.log(user, "================user in media configuration component");
-
   return (
     <form action="" className="flex h-full relative w-full flex-col gap-y-5">
       {isPending && (

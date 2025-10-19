@@ -5,20 +5,26 @@ type Params = {
   params: { id: string };
 };
 
-export async function POST(request: NextRequest, parameters: Params) {
+export async function OPTIONS() {
+  return NextResponse.json({}, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+}
+
+export async function POST(request: NextRequest, { params }: Params) {
   try {
-    const {
-      params: { id },
-    } = parameters;
+    const { id } = params;
 
     console.log("CALLED STUDIO API /api/studio");
 
     const body = await request.json();
 
     const studio = await client.user.update({
-      where: {
-        id: id,
-      },
+      where: { id },
       data: {
         studio: {
           update: {
@@ -30,17 +36,29 @@ export async function POST(request: NextRequest, parameters: Params) {
       },
     });
 
-    if (studio) {
-      return NextResponse.json({ status: 200, message: "Studio updated" });
-    }
-
-    return NextResponse.json({
-      status: 400,
-      message: "Oops Something went wrong!",
-    });
-    
+    return NextResponse.json(
+      studio
+        ? { status: 200, message: "Studio updated" }
+        : { status: 400, message: "Oops Something went wrong!" },
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        },
+      }
+    );
   } catch (error) {
-    console.log(error);
-    throw new Error("Error while updating Studio from desktop APP");
+    console.error(error);
+    return NextResponse.json(
+      { status: 500, message: "Error while updating Studio from desktop APP" },
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        },
+      }
+    );
   }
 }

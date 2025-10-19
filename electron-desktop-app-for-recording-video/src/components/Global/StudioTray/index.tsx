@@ -4,9 +4,7 @@ import { Cast, Pause, Square } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 
 export function StudioTray() {
-  const initialTime = new Date();
   const [onTimer, setOnTimer] = useState("00:00:00");
-  const [count, setcount] = useState(0);
   const videoElement = useRef<HTMLVideoElement | null>(null);
   const [preview, setPreview] = useState<boolean>(false);
   const [recording, setRecording] = useState<boolean>(false);
@@ -28,7 +26,6 @@ export function StudioTray() {
 
   const clearTimeout = () => {
     setOnTimer("00:00:00");
-    setcount(0);
   };
 
   useEffect(() => {

@@ -17,13 +17,10 @@ function Widget() {
       fetchMediaResources();
 
       fetchUserProfile(user.id).then((p) => {
-        console.log(p, "payload in use effect");
-        setprofile({status: 200, user: p.data});
+        setprofile({ status: 200, user: p.data });
       });
     }
   }, [user]);
-
-  console.log(profile, "profile in widget");
 
   return (
     <div className="p-5">
