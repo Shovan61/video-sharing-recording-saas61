@@ -8,6 +8,7 @@ function Webcam() {
       video: true,
       audio: true,
     });
+   
     if (camElement.current) {
       camElement.current.srcObject = stream;
       await camElement.current.play();
@@ -24,7 +25,6 @@ function Webcam() {
         ref={camElement}
         className="h-40 draggable object-cover !rounded-full aspect-video border-2 relative border-white"
       />
-    
     </>
   );
 }

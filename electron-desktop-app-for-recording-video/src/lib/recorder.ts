@@ -6,7 +6,7 @@ let videoTransferFileName: string | undefined;
 let mediaRecorder: MediaRecorder;
 let userId: string;
 
-const socket = io(import.meta.env.VITE_SOCKET_URL);
+const socket = io(import.meta.env.VITE_SOCKET_URL as string);
 
 export const StartRecording = (onSources: {
   screen: string;
