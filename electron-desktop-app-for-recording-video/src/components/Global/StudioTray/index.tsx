@@ -1,4 +1,4 @@
-import { onStopRecording, StartRecording } from "@/lib/recorder";
+import { onStopRecording, selectSources, StartRecording } from "@/lib/recorder";
 import { cn, videoRecordingTime } from "@/lib/utils";
 import { Cast, Pause, Square } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
@@ -27,6 +27,15 @@ export function StudioTray() {
   const clearTimeout = () => {
     setOnTimer("00:00:00");
   };
+
+  useEffect(() => {
+    if (onSources?.screen && onSources) {
+      selectSources(onSources, videoElement);
+    }
+    return () => {
+      selectSources(onSources!, videoElement);
+    };
+  }, [onSources]);
 
   useEffect(() => {
     if (!recording) return;

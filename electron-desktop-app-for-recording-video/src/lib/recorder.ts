@@ -28,7 +28,7 @@ const stopRecording = () => {
   });
 };
 
-const ondataavailableFunction = (e: BlobEvent) => {
+const ondataAvailableFunction = (e: BlobEvent) => {
   socket.emit("video-chunks", {
     chunks: e.data,
     filename: videoTransferFileName,
@@ -91,7 +91,7 @@ export const selectSources = async (
 
     // Socket setup
     // Capture chunks
-    mediaRecorder.ondataavailable = ondataavailableFunction;
+    mediaRecorder.ondataavailable = ondataAvailableFunction;
     mediaRecorder.onstart = stopRecording;
   }
 };
