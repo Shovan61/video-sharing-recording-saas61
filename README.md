@@ -10,8 +10,7 @@ It allows users to **record, upload, share, and manage videos** seamlessly — d
 ###  Frontend
 - **Next.js** (App Router)
 - **React 18**
-- **Tailwind CSS** / Styled Components
-- **Ant Design** (UI Components)
+- **Tailwind CSS** 
 
 ###  Backend
 - **Next.js API Routes** (Serverless backend)
@@ -73,7 +72,7 @@ Each user has a personal workspace to:
 
 ## Database Schema (Prisma)
 ------------------------------------------------------------
-
+## Architecture Of The Project
                 ┌────────────────────────┐
                 │      Electron App       │
                 │  - Screen/Webcam record │
