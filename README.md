@@ -1,4 +1,4 @@
-# 🎬 Video Sharing App
+# Video Sharing SASS Application
 
 A modern full-stack **video sharing platform** built with **Next.js**, combining web and desktop experiences for creators and viewers.  
 It allows users to **record, upload, share, and manage videos** seamlessly — directly from their browser or desktop app.
